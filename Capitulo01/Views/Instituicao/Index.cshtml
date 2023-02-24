@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Capitulo01.Models.Instituicao>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Instituição";
 }
 
 <!DOCTYPE html>
@@ -10,11 +10,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <p>@DateTime.Now</p>
 </head>
 <body>
+<h1 class="card-title align-content-center">Instituições</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar nova instituição</a>
 </p>
 <table class="table">
     <thead>
@@ -44,9 +44,9 @@
                 @Html.DisplayFor(modelItem => item.Endereco)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { item.InstituicaoID }) |
-                @Html.ActionLink("Details", "Details", new { item.InstituicaoID }) |
-                @Html.ActionLink("Delete", "Delete", new { item.InstituicaoID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.InstituicaoID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.InstituicaoID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.InstituicaoID })
             </td>
         </tr>
 }
