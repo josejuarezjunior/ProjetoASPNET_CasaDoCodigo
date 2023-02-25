@@ -15,30 +15,30 @@ namespace Capitulo01.Controllers
                 Nome = "UniParaná",
                 Endereco = "Paraná"
             },
-            new Instituicao()   
-            {
-                InstituicaoID = 2,
-                Nome = "UniSanta",
-                Endereco = "Santa Catarina"
-            },
-            new Instituicao()   
-            {
-                InstituicaoID = 3,
-                Nome = "UniSãoPaulo",
-                Endereco = "São	Paulo"
-            },
-            new Instituicao()   
-            {
-                InstituicaoID = 4,
-                Nome = "UniSulgrandense",
-                Endereco = "Rio	Grande do Sul"
-            },
-            new Instituicao()   
-            {
-                InstituicaoID = 5,
-                Nome = "UniCarioca",
-                Endereco = "Rio	de Janeiro"
-            }
+            //new Instituicao()   
+            //{
+            //    InstituicaoID = 2,
+            //    Nome = "UniSanta",
+            //    Endereco = "Santa Catarina"
+            //},
+            //new Instituicao()   
+            //{
+            //    InstituicaoID = 3,
+            //    Nome = "UniSãoPaulo",
+            //    Endereco = "São	Paulo"
+            //},
+            //new Instituicao()   
+            //{
+            //    InstituicaoID = 4,
+            //    Nome = "UniSulgrandense",
+            //    Endereco = "Rio	Grande do Sul"
+            //},
+            //new Instituicao()   
+            //{
+            //    InstituicaoID = 5,
+            //    Nome = "UniCarioca",
+            //    Endereco = "Rio	de Janeiro"
+            //}
         };
 
         // GET: Index
@@ -57,8 +57,17 @@ namespace Capitulo01.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Instituicao instituicao)
         {
+            
+            if (instituicoes.Count < 1)
+            {
+                instituicao.InstituicaoID = 1;
+            }
+            else
+            {
+                instituicao.InstituicaoID = instituicoes.Select(i => i.InstituicaoID).Max() + 1;
+            }
             instituicoes.Add(instituicao);
-            instituicao.InstituicaoID = instituicoes.Select(i => i.InstituicaoID).Max() + 1;
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -74,6 +83,24 @@ namespace Capitulo01.Controllers
             //instituicoes.Remove(instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
             //instituicoes.Add(instituicao);
             instituicoes[instituicoes.IndexOf(instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First())] = instituicao;
+            return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult Details(int id)
+        {
+            return View(instituicoes.Where(i => i.InstituicaoID == id).First());
+        }
+
+        public ActionResult Delete(int id)
+        {
+            return View(instituicoes.Where(i => i.InstituicaoID == id).First());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Instituicao instituicao)
+        {
+            instituicoes.Remove(instituicoes.Where(i => i.InstituicaoID == instituicao.InstituicaoID).First());
             return RedirectToAction(nameof(Index));
         }
     }

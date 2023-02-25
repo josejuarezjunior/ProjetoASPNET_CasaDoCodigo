@@ -8,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Capitulo01.Models;
+using Capitulo01.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Capitulo01
 {
@@ -23,6 +26,7 @@ namespace Capitulo01
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<IESContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IESConnection")));
             services.AddControllersWithViews();
         }
 
